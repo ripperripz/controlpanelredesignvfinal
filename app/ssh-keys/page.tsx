@@ -5,6 +5,7 @@ import { DashboardLayout } from '@/components/DashboardLayout';
 import { Key, Plus, Trash2, Eye, Search, ChevronDown, Filter, Edit2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 import { ConfirmationModal } from '@/components/ConfirmationModal';
 
