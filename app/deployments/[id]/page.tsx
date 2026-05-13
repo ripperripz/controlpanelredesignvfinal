@@ -3,34 +3,23 @@
 import React, { useState } from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { 
-  Rocket, 
-  Terminal, 
-  Settings, 
-  ChevronRight, 
-  Trash2, 
+  Rocket,
+  Terminal,
+  ChevronRight,
+  Trash2,
   Edit2,
-  Database,
-  Globe,
-  Clock,
-  Eye,
-  CheckCircle2,
-  FileCode,
-  Box,
   Play,
-  ArrowPathIcon
-} from '@heroicons/react/24/outline'; // Using Heroicons for some consistency, but lucide is also fine. I'll stick to Lucide for most.
-import { 
-  Rocket as RocketIcon,
-  Terminal as TerminalIcon,
-  ChevronRight as ChevronRightIcon,
-  Trash2 as TrashIcon,
-  Edit2 as EditIcon,
-  Play as PlayIcon,
   RotateCcw,
   CheckCircle,
-  Clock as ClockIcon,
+  Clock,
   Layout,
-  List
+  List,
+  Eye,
+  Settings,
+  Database,
+  Globe,
+  FileCode,
+  Box
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
@@ -62,8 +51,8 @@ export default function DeploymentDetailPage() {
   return (
     <DashboardLayout>
       <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-8">
-        <Link href="/" className="hover:text-brand-blue">Home</Link> <ChevronRightIcon className="w-3 h-3" />
-        <Link href="/deployments" className="hover:text-brand-blue">Deployments</Link> <ChevronRightIcon className="w-3 h-3" />
+        <Link href="/" className="hover:text-brand-blue">Home</Link> <ChevronRight className="w-3 h-3" />
+        <Link href="/deployments" className="hover:text-brand-blue">Deployments</Link> <ChevronRight className="w-3 h-3" />
         <span className="text-brand-navy">initia Saeed git v2...</span>
       </nav>
 
@@ -78,7 +67,7 @@ export default function DeploymentDetailPage() {
            <button className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-100 text-brand-navy text-xs font-bold rounded-xl shadow-sm hover:bg-gray-50 transition-all">
              <Layout className="w-4 h-4" /> Manage Pipelines
            </button>
-           <button className="p-3 bg-white border border-gray-100 text-gray-400 hover:text-brand-error rounded-xl shadow-sm transition-all"><TrashIcon className="w-5 h-5" /></button>
+           <button className="p-3 bg-white border border-gray-100 text-gray-400 hover:text-brand-error rounded-xl shadow-sm transition-all"><Trash2 className="w-5 h-5" /></button>
            <button className="flex items-center gap-2 px-6 py-3 bg-brand-orange text-white text-xs font-bold rounded-xl shadow-premium hover:bg-[#E55A1E] transition-all">
              <RotateCcw className="w-4 h-4" /> Rollback
            </button>
@@ -157,7 +146,7 @@ export default function DeploymentDetailPage() {
                             </td>
                             <td className="px-10 py-6 text-right">
                                <button className="p-2 text-gray-300 hover:text-brand-blue transition-colors">
-                                  <TerminalIcon className="w-4 h-4" />
+                                  <Terminal className="w-4 h-4" />
                                </button>
                             </td>
                          </tr>
