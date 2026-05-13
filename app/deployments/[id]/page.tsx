@@ -1,5 +1,6 @@
 'use client';
 
+// Consolidating icons to lucide-react to fix build issues.
 import React, { useState } from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { 
