@@ -2,16 +2,14 @@
 
 import React from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
-import { Key, Plus, Copy, Trash2, Eye } from 'lucide-react';
+import { Key, Plus, Trash2, Eye, Search, ChevronDown, Filter, Edit2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 import { ConfirmationModal } from '@/components/ConfirmationModal';
 
 const mockKeys = [
-  { name: 'MacBook Pro Personal', fingerprint: 'SHA256:x9B/r8K...sLpA', created: 'Oct 2, 2024' },
-  { name: 'Office Workstation', fingerprint: 'SHA256:v1A/d2M...oIpW', created: 'Sep 14, 2024' },
-  { name: 'Production Bot', fingerprint: 'SHA256:j4K/m9L...zR2Q', created: 'Aug 22, 2024' },
+  { name: 'example@client.com', signature: 'SHA256:$2y$10$8Si5DWrekrhq0Kq/sa/jb3.ahOlb0t2rqqOr4VjkZhYiHuserfjnse8ZtZK' },
 ];
 
 export default function SSHKeys() {
@@ -21,7 +19,7 @@ export default function SSHKeys() {
 
   const filteredKeys = mockKeys.filter(k => 
     k.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    k.fingerprint.toLowerCase().includes(searchQuery.toLowerCase())
+    k.signature.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleDelete = (name: string) => {
@@ -31,78 +29,73 @@ export default function SSHKeys() {
 
   return (
     <DashboardLayout>
-      <header className="mb-10 flex items-end justify-between">
-        <div>
-          <h1 className="text-4xl font-display font-bold text-gray-900 tracking-tight mb-2">SSH Keys</h1>
-          <p className="text-gray-500 font-medium text-lg">Manage public keys for secure infrastructure access.</p>
-        </div>
-        <button className="h-11 px-8 bg-brand-orange text-white rounded-xl font-bold text-sm shadow-premium hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
-          <Plus className="w-5 h-5" />
-          Add New Key
-        </button>
-      </header>
-
-      <div className="bg-white rounded-[32px] shadow-card overflow-hidden border border-gray-100">
-        <div className="p-8 border-b border-gray-50 flex items-center justify-between gap-6">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+      <header className="mb-8 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-6 flex-1">
+          <h1 className="text-xl font-display font-bold text-brand-navy tracking-tight whitespace-nowrap">SSH Keys</h1>
+          <div className="relative flex-1 max-w-xs group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-brand-blue transition-colors" />
             <input 
               type="text" 
-              placeholder="Search keys by name or fingerprint..." 
+              placeholder="Search" 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-11 pl-12 pr-4 bg-gray-50/50 border border-gray-100 rounded-2xl text-xs font-medium focus:outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue/30 focus:bg-white transition-all shadow-sm" 
+              className="w-full h-10 pl-11 pr-4 bg-white border border-gray-100 rounded-full text-sm focus:outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue/30 transition-all shadow-sm" 
             />
           </div>
-          <button className="h-11 px-4 bg-gray-50 text-gray-400 border border-gray-100 rounded-2xl flex items-center gap-2 hover:bg-white transition-all text-[10px] font-bold uppercase tracking-widest shadow-sm">
-            <Filter className="w-4 h-4" />
-            Filter & Sort
+        </div>
+        <Link href="/ssh-keys/create">
+          <button className="h-10 px-6 bg-brand-orange text-white rounded-lg font-bold text-sm shadow-premium hover:bg-[#E55A1E] transition-all">
+            Create SSH Key
+          </button>
+        </Link>
+      </header>
+
+      <div className="bg-white rounded-2xl shadow-card overflow-hidden border border-gray-100">
+        <div className="p-4 border-b border-gray-50 flex justify-end">
+          <button className="p-2 bg-brand-blue/5 text-brand-blue rounded-lg hover:bg-brand-blue/10 transition-all">
+            <div className="flex items-center gap-2 px-1">
+              <Filter className="w-4 h-4" />
+              <ChevronDown className="w-3 h-3" />
+            </div>
           </button>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50/30 border-b border-gray-100">
-                <th className="text-left py-5 px-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest cursor-pointer hover:text-brand-blue transition-colors">
-                   <div className="flex items-center gap-2">Name <ChevronDown className="w-3 h-3" /></div>
+              <tr className="bg-gray-50/20 border-b border-gray-100">
+                <th className="text-left py-4 px-8 text-[10px] font-bold text-brand-blue uppercase tracking-widest cursor-pointer group">
+                   <div className="flex items-center gap-2">NAME <div className="flex flex-col"><ChevronDown className="w-2.5 h-2.5 rotate-180 opacity-30" /><ChevronDown className="w-2.5 h-2.5" /></div></div>
                 </th>
-                <th className="text-left py-5 px-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fingerprint</th>
-                <th className="text-left py-5 px-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest cursor-pointer hover:text-brand-blue transition-colors">Created At</th>
-                <th className="text-right py-5 px-8"></th>
+                <th className="text-left py-4 px-8 text-[10px] font-bold text-brand-blue uppercase tracking-widest cursor-pointer group">
+                   <div className="flex items-center gap-2">SIGNATURE <div className="flex flex-col"><ChevronDown className="w-2.5 h-2.5 rotate-180 opacity-30" /><ChevronDown className="w-2.5 h-2.5" /></div></div>
+                </th>
+                <th className="text-right py-4 px-8"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filteredKeys.length > 0 ? (
                 filteredKeys.map((key, i) => (
                   <tr key={i} className="hover:bg-gray-50/50 transition-colors group">
-                    <td className="py-6 px-8">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue/5 group-hover:text-brand-blue transition-colors">
-                          <Key className="w-4 h-4" />
-                        </div>
-                        <span className="text-sm font-bold text-brand-navy">{key.name}</span>
-                      </div>
+                    <td className="py-5 px-8">
+                      <span className="text-sm font-bold text-brand-navy">{key.name}</span>
                     </td>
-                    <td className="py-6 px-8">
-                      <code className="text-[11px] font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded border border-gray-100">{key.fingerprint}</code>
+                    <td className="py-5 px-8">
+                      <span className="text-xs text-gray-400 font-medium truncate max-w-md block">{key.signature}</span>
                     </td>
-                    <td className="py-6 px-8">
-                      <span className="text-xs text-gray-400 font-medium">{key.created}</span>
-                    </td>
-                    <td className="py-6 px-8 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 text-gray-300 hover:text-brand-blue transition-colors">
-                          <Eye className="w-4 h-4" />
+                    <td className="py-5 px-8 text-right">
+                      <div className="flex items-center justify-end gap-3">
+                        <button className="text-brand-blue hover:scale-110 transition-transform">
+                          <Eye className="w-5 h-5" />
                         </button>
-                        <button className="p-2 text-gray-300 hover:text-brand-orange transition-colors">
-                          <Plus className="w-4 h-4" /> {/* Using Plus as pencil placeholder */}
+                        <button className="text-brand-blue hover:scale-110 transition-transform">
+                          <Edit2 className="w-5 h-5" />
                         </button>
                         <button 
                           onClick={() => handleDelete(key.name)}
-                          className="p-2 text-gray-300 hover:text-brand-error transition-colors"
+                          className="text-brand-error hover:scale-110 transition-transform ml-2"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-5 h-5" />
                         </button>
                       </div>
                     </td>
@@ -110,12 +103,8 @@ export default function SSHKeys() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="py-20 text-center">
-                    <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
-                       <Key className="w-8 h-8" />
-                    </div>
+                  <td colSpan={3} className="py-20 text-center">
                     <p className="text-gray-500 font-bold">No keys found</p>
-                    <p className="text-xs text-gray-400">Try adjusting your search criteria.</p>
                   </td>
                 </tr>
               )}
@@ -124,13 +113,10 @@ export default function SSHKeys() {
         </div>
 
         {/* Pagination */}
-        <div className="p-6 border-t border-gray-50 bg-gray-50/30 flex items-center justify-between">
-           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Showing {filteredKeys.length} of 3 Keys</p>
-           <div className="flex items-center gap-2">
-              <button className="h-8 px-4 bg-white border border-gray-100 rounded-xl text-[10px] font-bold text-gray-400 hover:text-brand-blue transition-all">Previous</button>
-              <button className="h-8 px-4 bg-brand-blue text-white rounded-xl text-[10px] font-bold shadow-sm">1</button>
-              <button className="h-8 px-4 bg-white border border-gray-100 rounded-xl text-[10px] font-bold text-gray-400 hover:text-brand-blue transition-all">Next</button>
-           </div>
+        <div className="p-4 border-t border-gray-50 bg-gray-50/10 flex items-center justify-between">
+           <button className="text-sm font-bold text-gray-400 hover:text-brand-blue transition-colors disabled:opacity-30" disabled>Previous</button>
+           <p className="text-xs font-bold text-brand-navy">1-1 of 1</p>
+           <button className="text-sm font-bold text-gray-400 hover:text-brand-blue transition-colors disabled:opacity-30" disabled>Next</button>
         </div>
       </div>
 

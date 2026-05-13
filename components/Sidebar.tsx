@@ -10,7 +10,10 @@ import {
   Ticket, 
   User, 
   Key,
-  ShieldCheck
+  ShieldCheck,
+  Globe,
+  Settings,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -20,13 +23,22 @@ const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { label: 'Environments', icon: Server, href: '/environments' },
     { label: 'Deployments', icon: Rocket, href: '/deployments' },
+    { label: 'Diagnostics', icon: ShieldCheck, href: '/diagnostics' },
   ]},
-  { group: 'SUPPORT', items: [
+  { group: 'MANAGEMENT', items: [
     { label: 'Tickets', icon: Ticket, href: '/tickets' },
+    { label: 'Internal Projects', icon: LayoutDashboard, href: '/internal/projects' },
+  ]},
+  { group: 'FINANCE', items: [
+    { label: 'Billing Accounts', icon: Key, href: '/billing' },
+  ]},
+  { group: 'REPORTS', items: [
+    { label: 'Usage Reports', icon: Globe, href: '/reports/usage' },
   ]},
   { group: 'ACCOUNT', items: [
-    { label: 'Profile', icon: User, href: '/profile' },
-    { label: 'SSH Keys', icon: Key, href: '/ssh-keys' },
+    { label: 'Profile Settings', icon: User, href: '/profile' },
+    { label: 'Security & 2FA', icon: ShieldCheck, href: '/profile/2fa' },
+    { label: 'SSH Keys', icon: Key, href: '/profile/ssh-keys' },
   ]},
 ];
 
@@ -66,8 +78,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               corefinity
             </span>
           </Link>
-          <button onClick={onClose} className="lg:hidden p-2 text-gray-400 hover:text-gray-900">
-            <User className="w-5 h-5 rotate-45" /> {/* Placeholder close icon */}
+          <button onClick={onClose} className="lg:hidden p-2 text-gray-400 hover:text-gray-900 transition-colors">
+            <X className="w-5 h-5" />
           </button>
         </div>
 

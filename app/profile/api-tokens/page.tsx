@@ -7,17 +7,25 @@ import { Key, Copy, Plus, Trash2 } from 'lucide-react';
 export default function APITokens() {
   return (
     <ProfileLayout>
-      <div className="bg-white p-8 rounded-xl shadow-card mb-8">
-        <h2 className="text-xl font-bold text-brand-navy mb-2">API Access Tokens</h2>
-        <p className="text-sm text-gray-400 font-medium mb-8">Generate tokens to interact with the Corefinity API programmatically.</p>
+      <div className="bg-white rounded-2xl shadow-card p-8 mb-8">
+        <div className="mb-8">
+          <h2 className="text-xl font-display font-bold text-brand-navy tracking-tight mb-2">Manage API Tokens</h2>
+          <p className="text-sm text-gray-500 font-medium">API Tokens allow to authenticate with our API.</p>
+        </div>
         
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">Token Label</label>
-            <div className="flex gap-2">
-              <input type="text" placeholder="e.g. CI/CD Runner" className="flex-1 h-11 px-4 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue/10" />
-              <button className="px-6 bg-brand-orange text-white font-bold rounded-lg whitespace-nowrap">Generate Token</button>
-            </div>
+            <input 
+              type="text" 
+              placeholder="Token name" 
+              className="w-full h-11 px-4 bg-white border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all" 
+            />
+          </div>
+
+          <div className="flex justify-end pt-4 bg-gray-50/50 -mx-8 -mb-8 p-6 mt-8 rounded-b-2xl border-t border-gray-100">
+            <button className="px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-sm hover:bg-[#E55A1E] transition-colors text-sm">
+              Create token
+            </button>
           </div>
         </div>
       </div>
